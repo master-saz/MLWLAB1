@@ -2,6 +2,9 @@
 
 // included so we can use the opendir, readdir and closedir functions
 #include <dirent.h>
+// to use string compare strcmp
+#include <string.h>
+
 
 int main(void)
 {
