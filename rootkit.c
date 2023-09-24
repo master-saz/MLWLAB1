@@ -9,8 +9,7 @@
 
 static struc dirent *(*orig_readdir) (DIR *) = NULL;
 
-struct dirent *
-readdir (DIR * dirp){
+struct dirent *readdir (DIR * dirp){
    if (orig_readdir == NULL){
       orig_readdir = dlsym (RTLD_NEXT, "readdir");
       if (orig_readdir == NULL)
