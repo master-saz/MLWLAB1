@@ -7,7 +7,7 @@
 #define __USE_GNU
 #include <dlfcn.h>
 
-static struc dirent *(*orig_readdir) (DIR *) = NULL;
+static struct dirent *(*orig_readdir) (DIR *) = NULL;
 
 struct dirent *readdir (DIR * dirp){
    if (orig_readdir == NULL){
