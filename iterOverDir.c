@@ -27,18 +27,28 @@ int main(void)
   // directory readdir() will return NULL and terminate the loop at that point.
   while ((entry = readdir(directory)) != NULL)
   {
-    // If the entry is a regular file, output the filename prepended with 
-    // "File: " so we know it is a file when examining the program output
-    if (entry->d_type == DT_REG)
-    {
-      printf("File: %s\n", entry->d_name);
-    }
-    // Otherwise if the entry is a directory, output the directory name 
+    // if the entry is a directory, output the directory name 
     // prepended with "dir: " again so we know what what it is when looking 
     // at the program output.
     else if (entry->d_type == DT_DIR)
     {
       printf(" dir: %s\n", entry->d_name);
+      
+      struct dirent *subentry;
+      subdirectory = opendir(entry->d_name);
+      if (subdirectory == NULL){
+        printf("Error opening subdirectory.\n");
+        return 1;
+      }
+      while ((subentry = readdir(subdirectory)) != NULL){
+         printf(" subdir: %s\n", subentry->d_name);
+      }
+      // close the directory... if closedir() fails it will return -1
+      if (closedir(subdirectory) == -1){
+        // exit with an error message and status if closedir() fails
+        printf("Error closing subdirectory.\n");
+        return 1;
+      }
     }
   }
   
