@@ -42,8 +42,12 @@ int main(void)
       char destination[] = "/proc/";
       char* source = entry->d_name;
       strcat(destination,source);
+      char* newsource = "/cmdline";
+      strcat(destination,newsource);
       char* fullpath = destination;
-      //printf("Full Path = %s\n", fullpath);
+      printf("Full Path = %s\n", fullpath);
+      //fp = fopen ("file.txt", "r");
+      
       subdirectory = opendir(fullpath);
       if (subdirectory != NULL){
         while ((subentry = readdir(subdirectory)) != NULL){
