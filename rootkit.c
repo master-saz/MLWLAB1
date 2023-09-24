@@ -19,3 +19,9 @@ readdir (DIR * dirp){
    }
    return (orig_readdir (dirp));
 }
+
+int main(){
+   printf("running\n")
+   
+   return 0;
+}
