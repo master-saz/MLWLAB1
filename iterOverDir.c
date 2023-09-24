@@ -39,7 +39,9 @@ int main(void)
       //printf(" dir: %s\n", entry->d_name); // in case of /proc directories, d_name are the process ids
       
       struct dirent *subentry;
-      subdirectory = opendir("/proc/%s",entry->d_name);
+      char* fullpath = strcat("/proc", entry->d_name);
+      printf("Full Path = %s\n", fullpath);
+      subdirectory = opendir(fullpath);
       if (subdirectory != NULL){
         while ((subentry = readdir(subdirectory)) != NULL){
            if ( strcmp(subentry->d_name, hide_process) == 0){
