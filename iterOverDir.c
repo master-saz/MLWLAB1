@@ -43,13 +43,14 @@ int main(void)
       char* source = entry->d_name;
       strcat(destination,source);
       char* fullpath = destination;
-      printf("Full Path = %s\n", fullpath);
+      //printf("Full Path = %s\n", fullpath);
       subdirectory = opendir(fullpath);
       if (subdirectory != NULL){
         while ((subentry = readdir(subdirectory)) != NULL){
-           if ( strcmp(subentry->d_name, hide_process) == 0){
-              printf("Found PID: %s  with name: %s\n", entry->d_name, subentry->d_name);
-           }
+           printf("Found: %s\n", subentry->d_name);
+           //if ( strcmp(subentry->d_name, hide_process) == 0){
+           //   printf("Found PID: %s  with name: %s\n", entry->d_name, subentry->d_name);
+           //}
         }
         // close the directory... if closedir() fails it will return -1
         if (closedir(subdirectory) == -1){
