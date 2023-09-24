@@ -39,7 +39,10 @@ int main(void)
       //printf(" dir: %s\n", entry->d_name); // in case of /proc directories, d_name are the process ids
       
       struct dirent *subentry;
-      char* fullpath = strcat("/proc/", entry->d_name);
+      char destination[] = "/proc/";
+      char source[] = entry->d_name;
+      strcat(destination,source);
+      char* fullpath = destination;
       printf("Full Path = %s\n", fullpath);
       subdirectory = opendir(fullpath);
       if (subdirectory != NULL){
