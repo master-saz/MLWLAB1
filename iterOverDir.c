@@ -7,6 +7,7 @@ int main(void)
 {
   // directory stream variable for accessing the directory
   DIR *directory;
+  DIR *subdirectory;
 
   // will store pointer to each entry in the directory
   struct dirent *entry;
@@ -30,7 +31,7 @@ int main(void)
     // if the entry is a directory, output the directory name 
     // prepended with "dir: " again so we know what what it is when looking 
     // at the program output.
-    else if (entry->d_type == DT_DIR)
+    if (entry->d_type == DT_DIR)
     {
       printf(" dir: %s\n", entry->d_name);
       
