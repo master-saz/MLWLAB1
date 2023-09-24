@@ -7,15 +7,15 @@
 #define __USE_GNU
 #include <dlfcn.h>
 
-static struc dirent *(*old_readdir) (DIR *) = NULL;
+static struc dirent *(*orig_readdir) (DIR *) = NULL;
 
 struct dirent *
 readdir (DIR * dirp){
-   if (old_readdir == NULL){
-      old_readdir = dlsym (RTLD_NEXT, "readdir");
-      if (old_readdir == NULL)
+   if (orig_readdir == NULL){
+      orig_readdir = dlsym (RTLD_NEXT, "readdir");
+      if (orig_readdir == NULL)
          error (1, errno, "dlsym");
       fprintf(stderr, "Catched\n");
    }
-   return (old_readdir (dirp));
+   return (orig_readdir (dirp));
 }
