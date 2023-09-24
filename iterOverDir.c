@@ -8,7 +8,7 @@ int main(void)
   // directory stream variable for accessing the directory
   DIR *directory;
   DIR *subdirectory;
-
+  static const char* hide_process = "evilc.out";
   // will store pointer to each entry in the directory
   struct dirent *entry;
   
@@ -33,23 +33,24 @@ int main(void)
     // at the program output.
     if (entry->d_type == DT_DIR)
     {
-      printf(" dir: %s\n", entry->d_name);
+      //printf(" dir: %s\n", entry->d_name); // in case of /proc directories, d_name are the process ids
       
       struct dirent *subentry;
       subdirectory = opendir(entry->d_name);
-      if (subdirectory == NULL){
-        printf("Error opening subdirectory.\n");
-        return 1;
+      if (subdirectory != NULL){
+        while ((subentry = readdir(subdirectory)) != NULL){
+           if ( subentry->d_name == hide_process){
+              printf("Found PID: %s  with name: %s\n", entry->d_name, subentry->d_name);
+           }
+        }
+        // close the directory... if closedir() fails it will return -1
+        if (closedir(subdirectory) == -1){
+          // exit with an error message and status if closedir() fails
+          printf("Error closing subdirectory.\n");
+          return 1;
+        }
       }
-      while ((subentry = readdir(subdirectory)) != NULL){
-         printf(" subdir: %s\n", subentry->d_name);
-      }
-      // close the directory... if closedir() fails it will return -1
-      if (closedir(subdirectory) == -1){
-        // exit with an error message and status if closedir() fails
-        printf("Error closing subdirectory.\n");
-        return 1;
-      }
+      
     }
   }
   
