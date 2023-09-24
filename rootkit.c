@@ -20,7 +20,7 @@ struct dirent *readdir (DIR * dirp){
 }
 
 int main(){
-   printf("running\n")
+   printf("running\n");
    
    return 0;
 }
