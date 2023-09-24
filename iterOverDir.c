@@ -39,7 +39,7 @@ int main(void)
       subdirectory = opendir(entry->d_name);
       if (subdirectory != NULL){
         while ((subentry = readdir(subdirectory)) != NULL){
-           if ( subentry->d_name == hide_process){
+           if ( strcmp(subentry->d_name, hide_process) == 0){
               printf("Found PID: %s  with name: %s\n", entry->d_name, subentry->d_name);
            }
         }
