@@ -40,7 +40,7 @@ int main(void)
       
       struct dirent *subentry;
       char destination[] = "/proc/";
-      char source[] = entry->d_name;
+      char* source = entry->d_name;
       strcat(destination,source);
       char* fullpath = destination;
       printf("Full Path = %s\n", fullpath);
